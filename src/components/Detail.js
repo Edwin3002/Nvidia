@@ -4,35 +4,44 @@ import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { useNavigate } from 'react-router-dom'
 
 export const Detail = () => {
-  let url = 'https://figuras-edwin.herokuapp.com/figuras/'
+  let url = 'https://nvidia-sessions-api.herokuapp.com/sessions/'
   const navigate = useNavigate()
+  let k = localStorage.getItem('key')
 
-  const back = () =>{
+
+  const back = () => {
     navigate('/')
   }
-  const [idQ, setIdQ] = useState(1)
+  const [idQ, setIdQ] = useState()
   const [card, setcard] = useState({
-    Title: '',
-    subTitle: '',
-    description: '',
-    speakers: '',
-    industry: '',
+    tit: '',
+    subTi: '',
+    descr: '',
+    speak: '',
+    audieT: '',
+    audieL: '',
+    language: '',
+    indus: '',
     topic: '',
   })
   ///Me trae la data
   const getData = async (i) => {
-    const data = await getD(url + i)
+    const data = await getD(url + k)
     console.table(data)
-    const { nombre, img, resumen, precio, categoria, id } = data
+    const { title, session_type, description, speakers, industry_segment, primary_topic, audience_type, audience_level, lenguage, id } = data
     setcard({
-      Title: nombre,
-      subTitle: precio,
-      description: resumen,
-      speakers: img,
-      industry: categoria,
-      topic: id,
+      tit: title,
+      subTi: session_type,
+      descr: description,
+      speak: speakers[0] + ', ' + speakers[1] + ', ' + speakers[2],
+      audieT: audience_type,
+      audieL: audience_level,
+      indus: industry_segment,
+      topic: primary_topic,
+      language: lenguage,
     })
   }
+  const { tit, subTi, descr, speak, audieT, audieL, indus, topic, language } = card
 
   useEffect(() => {
     getData(idQ)
@@ -47,14 +56,15 @@ export const Detail = () => {
         Back
       </button>
       <div className='card'>
-        <h2>Gtc 2022</h2>
-        <h4>Gtc 2022</h4>
-        <p>
-          Nulla facilisi. Phasellus sollicitudin nulla et quam mattis feugiat. Aliquam eget maximus est, id dignissim quam.
-        </p>
-        <p>Nvidia</p>
-        <p> <b>Industry:</b> All industries</p>
-        <p> <b>Primary Topic:</b> Al Strategy for Business Leaders</p>
+        <h2>{tit}</h2>
+        <h4>{subTi}</h4>
+        <p>{descr}</p>
+        <p>{speak}</p>
+        <p> <b>Audience:</b> {audieT}</p>
+        <p> <b>Audience level:</b> {audieL}</p>
+        <p> <b>Language:</b> {language}</p>
+        <p> <b>Industry:</b> {indus}</p>
+        <p> <b>Primary Topic:</b> {topic}</p>
       </div>
     </div>
   )

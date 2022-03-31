@@ -5,8 +5,17 @@ import Tab from '@mui/material/Tab';
 import Box from '@mui/material/Box';
 
 import '../style/style.css'
+import { useNavigate } from 'react-router-dom';
 
 export const Cards = () => {
+    //ver mas
+    const navigate = useNavigate()
+
+  const ver = () => {
+      let id = 2
+      localStorage.setItem('key', id)
+    navigate('/detail')
+  }
 
     // nav
     const [value, setValue] = React.useState('one');
@@ -39,6 +48,7 @@ export const Cards = () => {
                 <p>Nvidia</p>
                 <p> <b>Industry:</b> All industries</p>
                 <p> <b>Primary Topic:</b> Al Strategy for Business Leaders</p>
+                <button onClick={() => { ver() }}>ver detalle</button>
             </div>
             <div className='card'>
                 <h2>Gtc 2022</h2>
