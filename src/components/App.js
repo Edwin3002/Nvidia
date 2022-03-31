@@ -1,12 +1,14 @@
 import React from 'react'
+import { Cards } from './Cards'
+import { Filter } from './Filter'
+import '../style/style.css'
 
 export const App = () => {
   return (
-    <div>
-    <h1>
-        hola react
-    </h1>
+    <div className='contenedor'>
 
+    <Filter></Filter>
+    <Cards></Cards>
     </div>
   )
 }

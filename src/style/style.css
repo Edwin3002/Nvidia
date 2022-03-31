@@ -1,0 +1,25 @@
+/* app */
+* {
+  margin: 0;
+  padding: 0;
+  font-family: sans-serif;
+}
+.contenedor {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+/* filtro */
+.padreF {
+  background-color: green;
+  margin: auto;
+  width: 25%;
+}
+
+/* cards */
+.padreC {
+  background-color: blue;
+  margin: auto;
+  width: 65%;
+}
