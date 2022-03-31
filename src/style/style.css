@@ -10,16 +10,69 @@
   justify-content: space-between;
 }
 
+
 /* filtro */
 .padreF {
   background-color: green;
-  margin: auto;
+  margin: 20px auto;
+  padding: 10px;
   width: 25%;
+  height: 50%;
+}
+.search{
+    display: flex;
+}
+.input{
+    width: 80%;
+    margin: auto;
+    border: 2px solid #dddddd;
+    border-radius: 20px;
+    padding: 5px;
+}
+.lupa{
+    background-color: #76b900;
+    padding: 5px;
+    border-radius: 50px;
 }
 
 /* cards */
 .padreC {
-  background-color: blue;
-  margin: auto;
-  width: 65%;
+    background-color: yellowgreen;
+    color: black;
+    margin: 20px auto;
+    width: 65%;
 }
+.card{
+    background-color: white;
+    padding: 10px;
+    margin: 20px auto;
+}
+.card h2{
+    color: #76b900;
+    margin: 10px;
+}
+.card h4{
+    color: #76b900;
+    margin: 10px;
+}
+.card p{
+    color: #4a4a4a;
+    margin: 10px;
+}
+.card p b{
+    color: black;
+}
+
+
+    /* medioa */
+    @media (max-width:1000px) {
+        .contenedor{
+            flex-direction: column;
+        }
+        .padreF{
+            width: 80%;
+        }
+        .padreC{
+            width: 90%;
+        }
+    }

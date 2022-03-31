@@ -9,6 +9,7 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import FormGroup from '@mui/material/FormGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
+import SearchIcon from '@mui/icons-material/Search';
 
 import '../style/style.css'
 
@@ -23,7 +24,11 @@ export const Filter = () => {
     return (
         <div className='padreF'>
             <h2>Filters</h2>
-            <input placeholder='search' />
+            <div className='search'>
+
+            <input placeholder='search'  className='input'/>
+            <SearchIcon className='lupa'/>
+            </div>
             <div>
                 <Accordion expanded={expanded === 'panel1'} onChange={handleChange('panel1')}>
                     <AccordionSummary

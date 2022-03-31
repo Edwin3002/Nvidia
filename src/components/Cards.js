@@ -20,8 +20,8 @@ export const Cards = () => {
                     <Tabs
                         value={value}
                         onChange={handleChange}
-                        textColor="secondary"
-                        indicatorColor="secondary"
+                        textColor="primary"
+                        indicatorColor="primary"
                         aria-label="secondary tabs example"
                     >
                         <Tab value="one" label="Item One" />
@@ -30,36 +30,37 @@ export const Cards = () => {
                     </Tabs>
                 </Box>
             </nav>
-            <div >
+            <div className='card'>
                 <h2>Gtc 2022</h2>
                 <h4>Gtc 2022</h4>
                 <p>
                     Nulla facilisi. Phasellus sollicitudin nulla et quam mattis feugiat. Aliquam eget maximus est, id dignissim quam.
                 </p>
                 <p>Nvidia</p>
-                <p> <b>Industry</b> All industries</p>
-                <p> <b>Primary Topic</b> Al Strategy for Business Leaders</p>
+                <p> <b>Industry:</b> All industries</p>
+                <p> <b>Primary Topic:</b> Al Strategy for Business Leaders</p>
             </div>
-            <div >
+            <div className='card'>
                 <h2>Gtc 2022</h2>
                 <h4>Gtc 2022</h4>
                 <p>
                     Nulla facilisi. Phasellus sollicitudin nulla et quam mattis feugiat. Aliquam eget maximus est, id dignissim quam.
                 </p>
                 <p>Nvidia</p>
-                <p> <b>Industry</b> All industries</p>
-                <p> <b>Primary Topic</b> Al Strategy for Business Leaders</p>
+                <p> <b>Industry:</b> All industries</p>
+                <p> <b>Primary Topic:</b> Al Strategy for Business Leaders</p>
             </div>
-            <div >
+            <div className='card'>
                 <h2>Gtc 2022</h2>
                 <h4>Gtc 2022</h4>
                 <p>
                     Nulla facilisi. Phasellus sollicitudin nulla et quam mattis feugiat. Aliquam eget maximus est, id dignissim quam.
                 </p>
                 <p>Nvidia</p>
-                <p> <b>Industry</b> All industries</p>
-                <p> <b>Primary Topic</b> Al Strategy for Business Leaders</p>
+                <p> <b>Industry:</b> All industries</p>
+                <p> <b>Primary Topic:</b> Al Strategy for Business Leaders</p>
             </div>
+            
         </div>
     )
 }
