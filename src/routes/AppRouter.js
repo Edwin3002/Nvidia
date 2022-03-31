@@ -1,21 +1,16 @@
 import React from 'react'
-import {
-    BrowserRouter as Router,
-    Routes,
-    Route
-} from 'react-router-dom';
-import { Navbar } from '../components/Navbar';
+import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
+import { App } from '../components/App';
+import { Detail } from '../components/Detail';
 
 export const AppRouter = () => {
     return (
-        <Router>
-            <Navbar />
+        <BrowserRouter>
             <Routes>
-                <Route exact path="/senior" element={<SeniorScreen />} />
-                <Route exact path="/hobbit" element={<HobbitScreen />} />
-                <Route exact path="/movie/:id" element={<MovieScreen />} />
-                <Route exact path="/search" element={<SeacrhScreen />} />
+                <Route exact path="/" element={<App />} />
+                <Route exact path="/detail" element={<Detail />} />
+                <Route path='/*' element={<Navigate to='/' />} />
             </Routes>
-        </Router>
+        </BrowserRouter>
     )
 }
