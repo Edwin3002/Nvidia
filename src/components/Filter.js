@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 //acordion
 import Accordion from "@mui/material/Accordion";
 import AccordionDetails from "@mui/material/AccordionDetails";
@@ -13,6 +13,7 @@ import SearchIcon from "@mui/icons-material/Search";
 import FilterType from "../helpers/FilterType";
 
 import "../style/style.css";
+import { UserContext } from "../helpers/UseContext";
 
 export const Filter = () => {
   const [industry, setIndustry] = useState([]);
@@ -40,18 +41,46 @@ export const Filter = () => {
 
   const handleFilterChange = (event) => {
     setFilters({
-        ...filters,
+      ...filters,
       [event.target.name]: event.target.checked,
     });
     console.log(filters)
+
   };
+  //input
+  const [formS, setformS] = useState({
+    filterName: '',
+  })
+  let { filterName } = formS;
+
+  const handleC = ({ target }) => {
+    setformS({
+        ...formS,
+        [target.name]: target.value
+    })
+    console.log(formS)
+}
+
+  const handleSInput = (e) => {
+    e.preventDefault()
+    setformS(1)
+    console.log(formS)
+    console.log('soy submit')
+  }
+
 
   return (
     <div className="padreF">
       <h2>Filters</h2>
       <div className="search">
-        <input placeholder="search" className="input" />
-        <SearchIcon className="lupa" />
+        <form onSubmit={handleSInput}>
+
+          <input placeholder="search" className="input" name="filterName" value={filterName} onChange={handleC} />
+          <button type="submit">
+
+        <SearchIcon  className="lupa" />
+          </button>
+        </form>
       </div>
       <div>
         <Accordion

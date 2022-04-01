@@ -1,13 +1,22 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Cards } from './Cards'
-import { Filter } from './Filter'
+// import { Filter } from './Filter'
 import '../style/style.css'
+// import { UserContext } from '../helpers/UseContext'
 
 export const App = () => {
+
+  // const [filt, setFilt] = useState({
+  //   name: 'Edwin',
+  //   last_name: 'Ayala'
+  // });
+
   return (
-    <div className='contenedor'>
-    <Filter></Filter>
-    <Cards></Cards>
+    <div >
+      {/* <UserContext.Provider value={{ filt, setFilt }}> */}
+        {/* <Filter></Filter> */}
+        <Cards></Cards>
+      {/* </UserContext.Provider> */}
     </div>
   )
 }
