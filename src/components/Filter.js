@@ -18,6 +18,7 @@ export const Filter = () => {
   const [industry, setIndustry] = useState([]);
   const [primary, setPrimary] = useState([]);
   const [session, setSession] = useState([]);
+  const [filters, setFilters] = useState({})
 
   const getFilters = async () => {
     const { industry_segment, primary_topic, session_type } =
@@ -28,13 +29,21 @@ export const Filter = () => {
   };
 
   useEffect(() => {
-    getFilters();
+    getFilters()
   }, []);
 
   const [expanded, setExpanded] = React.useState(false);
 
   const handleChange = (panel) => (event, isExpanded) => {
     setExpanded(isExpanded ? panel : false);
+  };
+
+  const handleFilterChange = (event) => {
+    setFilters({
+        ...filters,
+      [event.target.name]: event.target.checked,
+    });
+    console.log(filters)
   };
 
   return (
@@ -62,7 +71,12 @@ export const Filter = () => {
             <FormGroup>
               {industry.map((element) => {
                 return (
-                  <FormControlLabel control={<Checkbox />} label={element} />
+                  <FormControlLabel
+                    control={<Checkbox />}
+                    label={element}
+                    name={element}
+                    onChange={handleFilterChange}
+                  />
                 );
               })}
             </FormGroup>
