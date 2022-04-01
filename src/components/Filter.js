@@ -1,105 +1,134 @@
-import React from 'react'
+import React, { useState, useEffect } from "react";
 //acordion
-import Accordion from '@mui/material/Accordion';
-import AccordionDetails from '@mui/material/AccordionDetails';
-import AccordionSummary from '@mui/material/AccordionSummary';
-import Typography from '@mui/material/Typography';
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import Accordion from "@mui/material/Accordion";
+import AccordionDetails from "@mui/material/AccordionDetails";
+import AccordionSummary from "@mui/material/AccordionSummary";
+import Typography from "@mui/material/Typography";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 //form
-import FormGroup from '@mui/material/FormGroup';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
-import SearchIcon from '@mui/icons-material/Search';
+import FormGroup from "@mui/material/FormGroup";
+import FormControlLabel from "@mui/material/FormControlLabel";
+import Checkbox from "@mui/material/Checkbox";
+import SearchIcon from "@mui/icons-material/Search";
+import FilterType from "../helpers/FilterType";
 
-import '../style/style.css'
+import "../style/style.css";
 
 export const Filter = () => {
+  const [industry, setIndustry] = useState([]);
+  const [primary, setPrimary] = useState([]);
+  const [session, setSession] = useState([]);
+  const [filters, setFilters] = useState({})
 
-    const [expanded, setExpanded] = React.useState(false);
+  const getFilters = async () => {
+    const { industry_segment, primary_topic, session_type } =
+      await FilterType();
+    setIndustry(industry_segment);
+    setPrimary(primary_topic);
+    setSession(session_type);
+  };
 
-    const handleChange = (panel) => (event, isExpanded) => {
-        setExpanded(isExpanded ? panel : false);
-    };
+  useEffect(() => {
+    getFilters()
+  }, []);
 
-    return (
-        <div className='padreF'>
-            <h2>Filters</h2>
-            <div className='search'>
+  const [expanded, setExpanded] = React.useState(false);
 
-            <input placeholder='search'  className='input'/>
-            <SearchIcon className='lupa'/>
-            </div>
-            <div>
-                <Accordion expanded={expanded === 'panel1'} onChange={handleChange('panel1')}>
-                    <AccordionSummary
-                        expandIcon={<ExpandMoreIcon />}
-                        aria-controls="panel1bh-content"
-                        id="panel1bh-header"
-                    >
-                        <Typography sx={{ width: '23%', flexShrink: 0 }}>
-                            General settings
-                        </Typography>
-                    </AccordionSummary>
-                    <AccordionDetails>
-                        <FormGroup>
-                            <FormControlLabel control={<Checkbox />} label="Filter" />
-                            <FormControlLabel control={<Checkbox />} label="Filter" />
-                            <FormControlLabel control={<Checkbox />} label="Filter" />
-                        </FormGroup>
-                    </AccordionDetails>
-                </Accordion>
-                <Accordion expanded={expanded === 'panel2'} onChange={handleChange('panel2')}>
-                    <AccordionSummary
-                        expandIcon={<ExpandMoreIcon />}
-                        aria-controls="panel2bh-content"
-                        id="panel2bh-header"
-                    >
-                        <Typography sx={{ width: '33%', flexShrink: 0 }}>Users</Typography>
-                    </AccordionSummary>
-                    <AccordionDetails>
-                    <FormGroup>
-                            <FormControlLabel control={<Checkbox />} label="Filter" />
-                            <FormControlLabel control={<Checkbox />} label="Filter" />
-                            <FormControlLabel control={<Checkbox />} label="Filter" />
-                        </FormGroup>
-                    </AccordionDetails>
-                </Accordion>
-                <Accordion expanded={expanded === 'panel3'} onChange={handleChange('panel3')}>
-                    <AccordionSummary
-                        expandIcon={<ExpandMoreIcon />}
-                        aria-controls="panel3bh-content"
-                        id="panel3bh-header"
-                    >
-                        <Typography sx={{ width: '33%', flexShrink: 0 }}>
-                            Advanced settings
-                        </Typography>
+  const handleChange = (panel) => (event, isExpanded) => {
+    setExpanded(isExpanded ? panel : false);
+  };
 
-                    </AccordionSummary>
-                    <AccordionDetails>
-                    <FormGroup>
-                            <FormControlLabel control={<Checkbox />} label="Filter" />
-                            <FormControlLabel control={<Checkbox />} label="Filter" />
-                            <FormControlLabel control={<Checkbox />} label="Filter" />
-                        </FormGroup>
-                    </AccordionDetails>
-                </Accordion>
-                <Accordion expanded={expanded === 'panel4'} onChange={handleChange('panel4')}>
-                    <AccordionSummary
-                        expandIcon={<ExpandMoreIcon />}
-                        aria-controls="panel4bh-content"
-                        id="panel4bh-header"
-                    >
-                        <Typography sx={{ width: '33%', flexShrink: 0 }}>Personal data</Typography>
-                    </AccordionSummary>
-                    <AccordionDetails>
-                    <FormGroup>
-                            <FormControlLabel control={<Checkbox />} label="Filter" />
-                            <FormControlLabel control={<Checkbox />} label="Filter" />
-                            <FormControlLabel control={<Checkbox />} label="Filter" />
-                        </FormGroup>
-                    </AccordionDetails>
-                </Accordion>
-            </div>
-        </div>
-    )
-}
+  const handleFilterChange = (event) => {
+    setFilters({
+        ...filters,
+      [event.target.name]: event.target.checked,
+    });
+    console.log(filters)
+  };
+
+  return (
+    <div className="padreF">
+      <h2>Filters</h2>
+      <div className="search">
+        <input placeholder="search" className="input" />
+        <SearchIcon className="lupa" />
+      </div>
+      <div>
+        <Accordion
+          expanded={expanded === "panel1"}
+          onChange={handleChange("panel1")}
+        >
+          <AccordionSummary
+            expandIcon={<ExpandMoreIcon />}
+            aria-controls="panel1bh-content"
+            id="panel1bh-header"
+          >
+            <Typography sx={{ width: "23%", flexShrink: 0 }}>
+              Industry Segment
+            </Typography>
+          </AccordionSummary>
+          <AccordionDetails>
+            <FormGroup>
+              {industry.map((element) => {
+                return (
+                  <FormControlLabel
+                    control={<Checkbox />}
+                    label={element}
+                    name={element}
+                    onChange={handleFilterChange}
+                  />
+                );
+              })}
+            </FormGroup>
+          </AccordionDetails>
+        </Accordion>
+        <Accordion
+          expanded={expanded === "panel2"}
+          onChange={handleChange("panel2")}
+        >
+          <AccordionSummary
+            expandIcon={<ExpandMoreIcon />}
+            aria-controls="panel2bh-content"
+            id="panel2bh-header"
+          >
+            <Typography sx={{ width: "33%", flexShrink: 0 }}>
+              Primary Topic
+            </Typography>
+          </AccordionSummary>
+          <AccordionDetails>
+            <FormGroup>
+              {primary.map((element) => {
+                return (
+                  <FormControlLabel control={<Checkbox />} label={element} />
+                );
+              })}
+            </FormGroup>
+          </AccordionDetails>
+        </Accordion>
+        <Accordion
+          expanded={expanded === "panel3"}
+          onChange={handleChange("panel3")}
+        >
+          <AccordionSummary
+            expandIcon={<ExpandMoreIcon />}
+            aria-controls="panel3bh-content"
+            id="panel3bh-header"
+          >
+            <Typography sx={{ width: "33%", flexShrink: 0 }}>
+              Session Type
+            </Typography>
+          </AccordionSummary>
+          <AccordionDetails>
+            <FormGroup>
+              {session.map((element) => {
+                return (
+                  <FormControlLabel control={<Checkbox />} label={element} />
+                );
+              })}
+            </FormGroup>
+          </AccordionDetails>
+        </Accordion>
+      </div>
+    </div>
+  );
+};
