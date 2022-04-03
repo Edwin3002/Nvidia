@@ -12,7 +12,7 @@ export const Detail = () => {
   const back = () => {
     navigate('/')
   }
-  const [idQ, setIdQ] = useState()
+  const [idQ] = useState()
   const [card, setcard] = useState({
     tit: '',
     subTi: '',
@@ -28,7 +28,7 @@ export const Detail = () => {
   const getData = async (i) => {
     const data = await getD(url + k)
     console.table(data)
-    const { title, session_type, description, speakers, industry_segment, primary_topic, audience_type, audience_level, lenguage, id } = data
+    const { title, session_type, description, speakers, industry_segment, primary_topic, audience_type, audience_level, lenguage } = data
     setcard({
       tit: title,
       subTi: session_type,
@@ -46,6 +46,7 @@ export const Detail = () => {
   useEffect(() => {
     getData(idQ)
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
 
