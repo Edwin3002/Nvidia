@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect} from "react";
 // nav
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
@@ -22,7 +22,7 @@ import Checkbox from "@mui/material/Checkbox";
 import SearchIcon from "@mui/icons-material/Search";
 import FilterType from "../helpers/FilterType";
 
-export const Cards = () => {
+export const Cards =  () => {
 
   ///filtrooooooo
 
@@ -47,7 +47,9 @@ export const Cards = () => {
 
   const handleChangeF = (panel) => (event, isExpanded) => {
     setExpanded(isExpanded ? panel : false);
+
   };
+
 
   const handleFilterChange = (event) => {
     setFilters({
@@ -73,8 +75,6 @@ export const Cards = () => {
 
   const handleSInput = (e) => {
     e.preventDefault()
-    setformS(1)
-    console.log(formS)
     console.log('soy submit')
   }
   //cardddddddddddddddddd
@@ -88,21 +88,75 @@ export const Cards = () => {
     localStorage.setItem('key', id.id)
     navigate('/detail')
   }
-  const [all, setAll] = useState([]);
 
+
+  ///Obtener dataaaaaaaaaa
+  const [all, setAll] = useState([]);
+  const [allData, setData] = useState([]);
+  let url = "https://nvidia-sessions-api.herokuapp.com/sessions/"
   const GetAll = async () => {
+    
     const resp = await fetch(
-      "https://nvidia-sessions-api.herokuapp.com/sessions/"
+      url
     );
     const json = await resp.json();
     setAll(json);
-
-
+    setData(json);
+      
+    ///buscarrrrrrrrrrrrrrrrr
   };
 
+  const todo = () => {
+
+    setAll(allData)
+  }
+  const buscar = () => {
+    console.log(filterName)
+    let filtrado = allData.filter(card =>card.title.toLocaleLowerCase().includes(filterName.toLocaleLowerCase()))
+    console.log(filtrado)
+    setAll(filtrado)
+  }
+  const buscarFecha1 = () => {
+    let d = '2022'
+    let filtrado = allData.filter(card =>card.date.toLocaleLowerCase().includes(d))
+    console.log(filtrado)
+    setAll(filtrado)
+  }
+  const buscarFecha2 = () => {
+    let d = '2023'
+    let filtrado = allData.filter(card =>card.date.toLocaleLowerCase().includes(d))
+    
+    console.log(filtrado)
+    setAll(filtrado)
+  }
+  // const buscarFecha3 = () => {
+  //   let d = '2024'
+
+  //   let d1 = '2023-01';
+  //   let d2 = '2023-02';
+  //   let d3 = '2023-03';
+  //   let d4 = '2023-04';
+  //   let d5 = '2023-05';
+  //   let d6 = '2023-06';
+  //   let filtrado = allData.filter(card =>card.date.toLocaleLowerCase().includes(d))
+  //   console.log(filtrado)
+  //   setAll(filtrado)
+  // }
+  // const buscarFecha4 = () => {
+  //   let d1 = '2023-07';
+  //   let d2 = '2023-08';
+  //   let d3 = '2023-09';
+  //   let d4 = '2023-10';
+  //   let d5 = '2023-11';
+  //   let d6 = '2023-12';
+  //   let filtrado = allData.filter(card =>card.date.toLocaleLowerCase().includes(d1 || d2 || d3 || d4 || d5 || d6))
+  //   console.log(filtrado)
+  //   setAll(filtrado)
+  // }
   useEffect(() => {
     GetAll();
-  });
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  },[setAll]);
 
 
 
@@ -111,99 +165,107 @@ export const Cards = () => {
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
+
   return (
     <div className='contenedor'>
 
-    	{/* FILTRO */}
+      {/* FILTRO */}
       <div className="padreF">
-      <h2>Filters</h2>
-      <div className="search">
-        <form onSubmit={handleSInput}>
+        <h2 className="h2">Filters</h2>
+        <div className="search">
+          <form className="f" onSubmit={handleSInput}>
 
-          <input placeholder="search" className="input" name="filterName" value={filterName} onChange={handleC} />
-          <button type="submit">
+            <input placeholder="search" className="input" name="filterName" value={filterName} onChange={handleC} />
+            <button type="submit" className="btn" onClick={() => { buscar() }}>
 
-        <SearchIcon  className="lupa" />
-          </button>
-        </form>
+              <SearchIcon className="lupa" />
+            </button>
+          </form>
+        </div>
+        <div>
+
+          {/* ////panel 1 */}
+
+          <Accordion
+            expanded={expanded === "panel1"}
+            onChange={handleChangeF("panel1")}
+          >
+            <AccordionSummary
+              expandIcon={<ExpandMoreIcon />}
+              aria-controls="panel1bh-content"
+              id="panel1bh-header"
+            >
+              <Typography sx={{ width: "23%", flexShrink: 0 }}>
+                Industry Segment
+              </Typography>
+            </AccordionSummary>
+            <AccordionDetails>
+              <FormGroup>
+                {industry.map((element) => {
+                  return (
+                    <FormControlLabel
+                      control={<Checkbox />}
+                      label={element}
+                      name={element}
+                      onChange={handleFilterChange}
+                    />
+                  );
+                })}
+              </FormGroup>
+            </AccordionDetails>
+          </Accordion>
+
+          {/* ////panel 2 */}
+          <Accordion
+            expanded={expanded === "panel2"}
+            onChange={handleChangeF("panel2")}
+          >
+            <AccordionSummary
+              expandIcon={<ExpandMoreIcon />}
+              aria-controls="panel2bh-content"
+              id="panel2bh-header"
+            >
+              <Typography sx={{ width: "33%", flexShrink: 0 }}>
+                Primary Topic
+              </Typography>
+            </AccordionSummary>
+            <AccordionDetails>
+              <FormGroup>
+                {primary.map((element) => {
+                  return (
+                    <FormControlLabel control={<Checkbox />} label={element} />
+                  );
+                })}
+              </FormGroup>
+            </AccordionDetails>
+          </Accordion>
+
+          {/* ////panel 3 */}
+          <Accordion
+            expanded={expanded === "panel3"}
+            onChange={handleChangeF("panel3")}
+          >
+            <AccordionSummary
+              expandIcon={<ExpandMoreIcon />}
+              aria-controls="panel3bh-content"
+              id="panel3bh-header"
+            >
+              <Typography sx={{ width: "33%", flexShrink: 0 }}>
+                Session Type
+              </Typography>
+            </AccordionSummary>
+            <AccordionDetails>
+              <FormGroup>
+                {session.map((element) => {
+                  return (
+                    <FormControlLabel control={<Checkbox />} label={element} />
+                  );
+                })}
+              </FormGroup>
+            </AccordionDetails>
+          </Accordion>
+        </div>
       </div>
-      <div>
-        <Accordion
-          expanded={expanded === "panel1"}
-          onChange={handleChangeF("panel1")}
-        >
-          <AccordionSummary
-            expandIcon={<ExpandMoreIcon />}
-            aria-controls="panel1bh-content"
-            id="panel1bh-header"
-          >
-            <Typography sx={{ width: "23%", flexShrink: 0 }}>
-              Industry Segment
-            </Typography>
-          </AccordionSummary>
-          <AccordionDetails>
-            <FormGroup>
-              {industry.map((element) => {
-                return (
-                  <FormControlLabel
-                    control={<Checkbox />}
-                    label={element}
-                    name={element}
-                    onChange={handleFilterChange}
-                  />
-                );
-              })}
-            </FormGroup>
-          </AccordionDetails>
-        </Accordion>
-        <Accordion
-          expanded={expanded === "panel2"}
-          onChange={handleChangeF("panel2")}
-        >
-          <AccordionSummary
-            expandIcon={<ExpandMoreIcon />}
-            aria-controls="panel2bh-content"
-            id="panel2bh-header"
-          >
-            <Typography sx={{ width: "33%", flexShrink: 0 }}>
-              Primary Topic
-            </Typography>
-          </AccordionSummary>
-          <AccordionDetails>
-            <FormGroup>
-              {primary.map((element) => {
-                return (
-                  <FormControlLabel control={<Checkbox />} label={element} />
-                );
-              })}
-            </FormGroup>
-          </AccordionDetails>
-        </Accordion>
-        <Accordion
-          expanded={expanded === "panel3"}
-          onChange={handleChangeF("panel3")}
-        >
-          <AccordionSummary
-            expandIcon={<ExpandMoreIcon />}
-            aria-controls="panel3bh-content"
-            id="panel3bh-header"
-          >
-            <Typography sx={{ width: "33%", flexShrink: 0 }}>
-              Session Type
-            </Typography>
-          </AccordionSummary>
-          <AccordionDetails>
-            <FormGroup>
-              {session.map((element) => {
-                return (
-                  <FormControlLabel control={<Checkbox />} label={element} />
-                );
-              })}
-            </FormGroup>
-          </AccordionDetails>
-        </Accordion>
-      </div>
-    </div>
 
 
       <div className="padreC">
@@ -216,9 +278,11 @@ export const Cards = () => {
               indicatorColor="primary"
               aria-label="secondary tabs example"
             >
-              <Tab value="one" label="Item One" />
-              <Tab value="two" label="Item Two" />
-              <Tab value="three" label="Item Three" />
+              <Tab value="one" label="All" onClick={() => { todo() }}/>
+              <Tab value="two" label="2022" onClick={() => { buscarFecha1() }}/>
+              <Tab value="three" label="2023" onClick={() => { buscarFecha2() }}/>
+              {/* <Tab value="four" label="2024" onClick={() => { buscarFecha3() }}/> */}
+              {/* <Tab value="five" label="2023(month 7 - 12)" onClick={() => { buscarFecha4() }}/> */}
             </Tabs>
           </Box>
         </nav>

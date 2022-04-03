@@ -13,31 +13,44 @@
 
 /* filtro */
 .padreF {
-  background-color: green;
   margin: 20px auto;
   padding: 10px;
   width: 25%;
   height: 50%;
 }
+.h2{
+    color: black;
+}
+.f{
+    display: flex;
+    width: 100%;
+}
 .search{
     display: flex;
+    align-content: center;
 }
 .input{
     width: 80%;
-    margin: auto;
+    margin:10px auto;
     border: 2px solid #dddddd;
     border-radius: 20px;
     padding: 5px;
 }
+.btn{
+    background-color: transparent;
+    border: none;
+}
 .lupa{
-    background-color: #76b900;
+    background-color: #8ad801;
     padding: 5px;
     border-radius: 50px;
+}
+.lupa:hover{
+    background-color: #76b900;
 }
 
 /* cards */
 .padreC {
-    background-color: yellowgreen;
     color: black;
     margin: 20px auto;
     width: 65%;
